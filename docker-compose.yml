@@ -17,6 +17,20 @@ services:
     depends_on:
       - certbot
 
+  db:
+    image: mariadb:10.6
+    container_name: mariadb_cointainer
+    networks:
+      - web
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: BrieucGorin
+      MARIADB_DATABASE: cashtagdb
+      MARIADB_CHARACTER_SET_SERVER: utf8mb4
+      MARIADB_COLLATION_SERVER: utf8mb4_unicode_ci
+    volumes:
+      - /home/debian/var-lib-mysql/:/var/lib/mysql
+
   certbot:
     image: certbot/certbot:latest
     container_name: certbot
